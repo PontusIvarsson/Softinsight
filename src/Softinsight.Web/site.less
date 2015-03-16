@@ -3,7 +3,9 @@
 @mastheadFocus: #938989;
 @mastheadActive: #fff;
 @colorLink: rgba(255, 156, 0, 0.59);
-@colorHeadings: #ff9c00;
+
+@colorHeading1: #ff9c00;
+@colorHeadings: rgb(134, 115, 68);
 @colorParagraph: #333;
 
 
@@ -16,7 +18,13 @@ body {
     color: @colorParagraph;
 }
 
-h1, .h1,
+h1, .h1 {
+    font-family: 'Bevan', cursive;
+    margin-top: 0;
+    font-weight: normal;
+    color: @colorHeading1;
+}
+
 h2, .h2,
 h3, .h3,
 h4, .h4,

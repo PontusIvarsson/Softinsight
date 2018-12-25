@@ -58,6 +58,7 @@ namespace WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                markdownPost.TestProperty = "test";
                 _context.Add(markdownPost);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

@@ -5,13 +5,13 @@ webappname=Softinsight2
 myResourceGroup=SoftinsightResourceGroup
 
 # Create a resource group.
-#az group create --location westeurope --name $myResourceGroup
+az group create --location westeurope --name $myResourceGroup
 
 # Create an App Service plan in `FREE` tier.
-#az appservice plan create --name $webappname --resource-group $myResourceGroup --sku FREE
+az appservice plan create --name $webappname --resource-group $myResourceGroup --sku FREE
 
 # Create a web app.
-#az webapp create --name $webappname --resource-group $myResourceGroup --plan $webappname
+az webapp create --name $webappname --resource-group $myResourceGroup --plan $webappname
 
 # Deploy code from a public GitHub repository. 
 az webapp deployment source config --name $webappname --resource-group $myResourceGroup \
@@ -19,5 +19,3 @@ az webapp deployment source config --name $webappname --resource-group $myResour
 
 # Copy the result of the following command into a browser to see the web app.
 echo http://$webappname.azurewebsites.net
-
-

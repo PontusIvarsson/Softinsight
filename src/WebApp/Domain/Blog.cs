@@ -3,25 +3,28 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApp.Domain.SharedKernel;
 
 namespace WebApp.Domain
 {
-    public class Blog
+    public class Blog : Entity
     {
+
         public Blog(string name)
         {
+            _insights = new List<Insight>();
             Name = name;
         }
-        public int Id { get; private set; }
         public string Name { get; private set; }
 
         private List<Insight> _insights;
-        public ICollection<Insight> Insights { get; set; }
+        public IEnumerable<Insight> Insights => _insights;
 
-        public void AddInsight(string text)
+        public Insight AddInsight(string text)
         {
             Insight i = new Insight(text);
             _insights.Add(i);
+            return i;
         }
 
     }
@@ -31,6 +34,7 @@ namespace WebApp.Domain
         private Insight() { }
         public Insight(string text)
         {
+            _hashtags = new HashSet<Hashtag>();
             Text = text;
             CreatedDate = DateTime.Now;
         }
@@ -38,23 +42,24 @@ namespace WebApp.Domain
         public DateTime CreatedDate { get; private set; }
         public string Text { get; private set; }
 
-        private List<Hashtag> _tags;
+        private HashSet<Hashtag> _hashtags;
 
-        [NotMapped]
-        public ICollection<Hashtag> Hashtags { get; private set; }
+        public IEnumerable<Hashtag> Hashtags => _hashtags;
 
 
         public void AddTag(Hashtag tag)
         {
-            if (_tags.Contains(tag))
+            if (_hashtags.Contains(tag))
                 throw new ApplicationException("Already contains tag.");
-            Hashtags.Add(tag);
+            _hashtags.Add(tag);
         }
 
     }
 
     public class Hashtag : ValueObject
     {
+        int InsightId;
+        int Id;
         public Hashtag(string value)
         {
             //todo: add valid validation =)

@@ -10,12 +10,32 @@
     <h4>Blog</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Name)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Insights)
+        </dt>
+        <dd class="col-sm-10">
+            <ul>
+
+                @foreach (var insight in Model.Insights)
+                {
+                    <li>@insight.Text</li>
+                    <ul>
+                        @foreach (var item in insight.Hashtags)
+                        {
+                        <li> @item.Value</li>
+                        }
+                    </ul>
+                }
+            </ul>
+
+        </dd>
+
     </dl>
 </div>
 <div>

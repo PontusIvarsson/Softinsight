@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebApp.Domain
+namespace WebApp.Domain.SharedKernel
 {
-
     public abstract class ValueObject
     {
         protected static bool EqualOperator(ValueObject left, ValueObject right)

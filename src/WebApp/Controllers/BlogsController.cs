@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using WebApp.Data;
 using WebApp.Domain;
 
 namespace WebApp.Controllers
@@ -33,7 +33,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var blog = await _context.Blog
+            var blog = await _context.Blog.Include(x=>x.Insights)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (blog == null)
             {
@@ -54,11 +54,29 @@ namespace WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Blog blog)
+        public async Task<IActionResult> Create([Bind("Name")] string name)
         {
+
+            var blog = new Blog(name);
             if (ModelState.IsValid)
             {
                 _context.Add(blog);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(blog);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateInsight(int id, string insightText)
+        {
+            var blog = await _context.Blog.Include(x => x.Insights)
+    .FirstOrDefaultAsync(m => m.Id == id);
+            
+            if (ModelState.IsValid)
+            {
+                blog.AddInsight(insightText).AddTag(new Hashtag("tag" + insightText));
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

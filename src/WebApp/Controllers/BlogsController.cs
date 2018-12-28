@@ -7,14 +7,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApp.Domain;
+using WebApp.Domain.BlogAggregate;
 
 namespace WebApp.Controllers
 {
     public class BlogsController : Controller
     {
-        private readonly WebAppContext _context;
+        private readonly BlogContext _context;
 
-        public BlogsController(WebAppContext context)
+        public BlogsController(BlogContext context)
         {
             _context = context;
         }
@@ -33,7 +34,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var blog = await _context.Blog.Include(x=>x.Insights)
+            var blog = await _context.Blog.Include(x => x.Insights)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (blog == null)
             {
@@ -72,7 +73,7 @@ namespace WebApp.Controllers
         {
             var blog = await _context.Blog.Include(x => x.Insights)
     .FirstOrDefaultAsync(m => m.Id == id);
-            
+
             if (ModelState.IsValid)
             {
                 blog.AddInsight(insightText).AddTag(new Hashtag("tag" + insightText));

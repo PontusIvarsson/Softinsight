@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WebApp.Domain.SharedKernel
 {
-    public class IAggregateRoot
+    public interface IAggregateRoot
     {
     }
 }

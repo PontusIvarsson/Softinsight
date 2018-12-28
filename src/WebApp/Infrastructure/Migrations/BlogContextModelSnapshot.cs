@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace WebApp.Migrations
+namespace WebApp.Infrastructure.Migrations
 {
-    [DbContext(typeof(WebAppContext))]
-    partial class WebAppContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(BlogContext))]
+    partial class BlogContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -19,7 +19,7 @@ namespace WebApp.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("WebApp.Domain.Blog", b =>
+            modelBuilder.Entity("WebApp.Domain.BlogAggregate.Blog", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,7 +32,7 @@ namespace WebApp.Migrations
                     b.ToTable("Blog");
                 });
 
-            modelBuilder.Entity("WebApp.Domain.Insight", b =>
+            modelBuilder.Entity("WebApp.Domain.BlogAggregate.Insight", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -51,13 +51,13 @@ namespace WebApp.Migrations
                     b.ToTable("Insight");
                 });
 
-            modelBuilder.Entity("WebApp.Domain.Insight", b =>
+            modelBuilder.Entity("WebApp.Domain.BlogAggregate.Insight", b =>
                 {
-                    b.HasOne("WebApp.Domain.Blog")
+                    b.HasOne("WebApp.Domain.BlogAggregate.Blog")
                         .WithMany("Insights")
                         .HasForeignKey("BlogId");
 
-                    b.OwnsMany("WebApp.Domain.Hashtag", "Hashtags", b1 =>
+                    b.OwnsMany("WebApp.Domain.BlogAggregate.Hashtag", "Hashtags", b1 =>
                         {
                             b1.Property<int>("InsightId");
 
@@ -69,7 +69,7 @@ namespace WebApp.Migrations
 
                             b1.ToTable("Hashtag");
 
-                            b1.HasOne("WebApp.Domain.Insight")
+                            b1.HasOne("WebApp.Domain.BlogAggregate.Insight")
                                 .WithMany("Hashtags")
                                 .HasForeignKey("InsightId")
                                 .OnDelete(DeleteBehavior.Cascade);

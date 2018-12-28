@@ -5,17 +5,18 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using WebApp.Domain;
+using WebApp.Domain.BlogAggregate;
 
 namespace Infrastructure
 {
-    public class WebAppContext : DbContext
+    public class BlogContext : DbContext
     {
-        public WebAppContext (DbContextOptions<WebAppContext> options)
+        public BlogContext (DbContextOptions<BlogContext> options)
             : base(options)
         {
         }
 
-        public DbSet<WebApp.Domain.Blog> Blog { get; set; }
+        public DbSet<Blog> Blog { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,12 +26,12 @@ namespace Infrastructure
 
     class InsightEntityTypeConfiguration : IEntityTypeConfiguration<Insight>
     {
-        public void Configure(EntityTypeBuilder<Insight> builder)
+        public void Configure(EntityTypeBuilder<Insight> insight)
         {
-            builder.OwnsMany<Hashtag>(x => x.Hashtags, a => {
-                a.HasForeignKey("InsightId");
-                a.Property<int>("Id");
-                a.HasKey("InsightId", "Id");
+            insight.OwnsMany<Hashtag>(x => x.Hashtags, hastag => {
+                hastag.HasKey("InsightId", "Id");
+                hastag.HasForeignKey("InsightId");
+                hastag.Property<int>("Id");
             });
         }
     }

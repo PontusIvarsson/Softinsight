@@ -1,4 +1,4 @@
-﻿@model WebApp.Domain.Blog
+﻿@model WebApp.Domain.BlogAggregate.Blog
 
 @{
     ViewData["Title"] = "Details";
@@ -28,7 +28,7 @@
                     <ul>
                         @foreach (var item in insight.Hashtags)
                         {
-                        <li> @item.Value</li>
+                            <li> @item.Value</li>
                         }
                     </ul>
                 }

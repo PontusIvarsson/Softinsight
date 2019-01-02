@@ -21,6 +21,8 @@ namespace WebApp.Domain.BlogAggregate
         
         public IEnumerable<Insight> Insights => _insights;
 
+        
+
         public Insight AddInsight(string text)
         {
             Insight i = new Insight(text);

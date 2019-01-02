@@ -8,22 +8,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApp.Domain;
 using WebApp.Domain.BlogAggregate;
+using WebApp.Domain.SharedKernel;
 
 namespace WebApp.Controllers
 {
     public class BlogsController : Controller
     {
         private readonly BlogContext _context;
+        private readonly IBlogRepository _blogRepo;
 
-        public BlogsController(BlogContext context)
+        public BlogsController(BlogContext context, IBlogRepository repository)
         {
-            _context = context;
+            _context = (BlogContext)context;
+            _blogRepo = repository;
         }
 
         // GET: Blogs
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Blog.ToListAsync());
+            return View(await _blogRepo.GetAllAsync());
         }
 
         // GET: Blogs/Details/5
@@ -34,8 +37,10 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var blog = await _context.Blog.Include(x => x.Insights)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var blog = await _blogRepo.FindByIdAsync(id.Value);
+            
+
+
             if (blog == null)
             {
                 return NotFound();
@@ -62,7 +67,8 @@ namespace WebApp.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(blog);
-                await _context.SaveChangesAsync();
+                _blogRepo.Add(blog);
+                await _blogRepo.UnitOfWork.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(blog);
@@ -92,7 +98,7 @@ namespace WebApp.Controllers
                 return NotFound();
             }
 
-            var blog = await _context.Blog.FindAsync(id);
+            var blog = await _blogRepo.FindByIdAsync(id.Value);
             if (blog == null)
             {
                 return NotFound();

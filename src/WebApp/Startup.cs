@@ -11,6 +11,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Infrastructure;
+using WebApp.Domain.SharedKernel;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using WebApp.Domain.BlogAggregate;
+using WebApp.Infrastructure;
+using WebApp.Queries;
 
 namespace WebApp
 {
@@ -35,22 +40,32 @@ namespace WebApp
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            
 
+            var envConnectionstring = "";
             // Use SQL Database if in Azure, otherwise, use SQLite
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
-                services.AddDbContext<BlogContext>(options =>
-                        options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
+            {
+                envConnectionstring = Configuration.GetConnectionString("MyDbConnection");
+            }
             else
-                services.AddDbContext<BlogContext>(options =>
-                    options.UseSqlServer(
-                        Configuration.GetConnectionString("DefaultConnection")));
+            {
+                envConnectionstring = Configuration.GetConnectionString("DefaultConnection");         
+            }
+
+
+            services.AddDbContext<BlogContext>(options =>
+                    options.UseSqlServer(envConnectionstring));
+
+            services.AddTransient<IBlogQueries, BlogQueries>(s => new BlogQueries(envConnectionstring));
+
 
             // Drop database
             //services.BuildServiceProvider().GetService<BlogContext>().Database.EnsureDeleted();
             // Automatically perform database migratio
             services.BuildServiceProvider().GetService<BlogContext>().Database.Migrate();
-
+            services.AddTransient<IUnitOfWork, BlogContext>();
+            services.AddTransient<IBlogRepository, BlogRepository>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

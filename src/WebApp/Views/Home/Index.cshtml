@@ -1,8 +1,19 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model IEnumerable<WebApp.Queries.BlogSearchResult>
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <input type="text" name="searchTag" class="form-control" />
+    </div>
+</form>
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <li> @item.BlogName @item.BlogId @item.InsightId @item.Hashtag</li>
+    }
+}

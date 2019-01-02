@@ -5,14 +5,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebApp.Models;
+using WebApp.Queries;
 
 namespace WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        IBlogQueries _blogQueries;
+        public HomeController(IBlogQueries blogQueries)
         {
-            return View();
+            _blogQueries = blogQueries;
+        }
+
+        public async Task<IActionResult> Index(string searchTag)
+        {
+            var a = await _blogQueries.GetBlogsContainingTag(searchTag);
+            return View( a);
         }
 
         public IActionResult Privacy()

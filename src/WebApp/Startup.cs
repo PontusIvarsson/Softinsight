@@ -54,7 +54,7 @@ namespace WebApp
 
 
             services.AddDbContext<BlogContext>(options =>
-                    options.UseSqlServer(envConnectionstring));
+                    options.UseSqlServer(envConnectionstring) );
 
             services.AddTransient<IBlogQueries, BlogQueries>(s => new BlogQueries(envConnectionstring));
 

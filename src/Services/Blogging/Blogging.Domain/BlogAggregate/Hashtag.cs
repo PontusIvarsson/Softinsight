@@ -1,10 +1,8 @@
-﻿using System;
+﻿using Blogging.Domain.SharedKernel;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WebApp.Domain.SharedKernel;
 
-namespace WebApp.Domain.BlogAggregate
+namespace Blogging.Domain.BlogAggregate
 {
     public class Hashtag : ValueObject
     {

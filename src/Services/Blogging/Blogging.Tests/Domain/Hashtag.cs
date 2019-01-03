@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using WebApp.Domain.BlogAggregate;
+﻿using Blogging.Domain.BlogAggregate;
+using System;
 using Xunit;
 
-namespace Softinsight.Test.Domain.BlogAggregate
+namespace Blog.Tests.Domain
 {
-    [Trait("Category", "Hashtag")]
+
+    [Trait(TestHelper.TestType, TestHelper.UnitTest)]
     public class HashtagShould
     {
         [Fact]
@@ -27,9 +26,9 @@ namespace Softinsight.Test.Domain.BlogAggregate
         }
 
         [Theory]
-        [InlineData("#a    ")]
-        [InlineData("aa")]
-        [InlineData("#a aa")]
+        [InlineData("a_ 1")]
+        [InlineData("a a")]
+        [InlineData("#a _aa")]
         public void NotAccept(string value)
         {
             //arrange

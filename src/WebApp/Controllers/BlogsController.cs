@@ -19,7 +19,7 @@ namespace WebApp.Controllers
 
         public BlogsController(BlogContext context, IBlogRepository repository)
         {
-            _context = (BlogContext)context;
+            _context = context;
             _blogRepo = repository;
         }
 

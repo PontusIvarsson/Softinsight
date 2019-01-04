@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 
-namespace Blog.Tests
+namespace Blogging.Tests
 {
     public static class TestHelper
     {
@@ -11,4 +11,6 @@ namespace Blog.Tests
         public const string UnitTest = "Unittest";
         public const string IntegrationTest = "Integrationtest";
     }
+
+    
 }

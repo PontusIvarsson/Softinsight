@@ -16,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using WebApp.Domain.BlogAggregate;
 using WebApp.Infrastructure;
 using WebApp.Queries;
+using System.Data.SqlClient;
 
 namespace WebApp
 {
@@ -49,14 +50,20 @@ namespace WebApp
             }
             else
             {
-                envConnectionstring = Configuration.GetConnectionString("DefaultConnection");         
+                envConnectionstring = Configuration.GetConnectionString("DefaultConnection");
             }
 
 
             services.AddDbContext<BlogContext>(options =>
-                    options.UseSqlServer(envConnectionstring) );
+                    options.UseSqlServer(envConnectionstring));
 
             services.AddTransient<IBlogQueries, BlogQueries>(s => new BlogQueries(envConnectionstring));
+
+
+            var blogContext = new DbContextOptionsBuilder()
+                .UseSqlServer(Blogging.ConnectionString)
+                .Options;
+
 
 
             // Drop database
@@ -65,8 +72,14 @@ namespace WebApp
             services.BuildServiceProvider().GetService<BlogContext>().Database.Migrate();
             services.AddTransient<IUnitOfWork, BlogContext>();
             services.AddTransient<IBlogRepository, BlogRepository>();
-            
+
         }
+
+        private static SqlConnectionStringBuilder Blogging =>
+            new SqlConnectionStringBuilder
+            {
+                DataSource = ""
+            };
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

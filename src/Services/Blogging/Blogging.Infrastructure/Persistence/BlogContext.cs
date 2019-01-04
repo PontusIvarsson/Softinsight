@@ -1,17 +1,36 @@
-﻿using System.Threading;
+﻿using System.Data.SqlClient;
+using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using Blogging.Domain.BlogAggregate;
 using Blogging.Domain.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Blogging.Infrastructure
+namespace Blogging.Infrastructure.Persistence
 {
     public class BlogContext : DbContext, IUnitOfWork
     {
+        private static SqlConnectionStringBuilder Blogging =>
+            new SqlConnectionStringBuilder
+            {
+                DataSource = @"(localdb)\MSSQLLocalDB",
+                InitialCatalog = "SoftinsightIntegrationTest",
+                IntegratedSecurity = true
+            };
+
+        public BlogContext()
+        {
+        }
+        
         public BlogContext (DbContextOptions<BlogContext> options)
             : base(options)
         {
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(Blogging.ConnectionString);
         }
 
         public DbSet<Blog> Blog { get; set; }

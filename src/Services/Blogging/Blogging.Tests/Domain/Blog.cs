@@ -1,27 +1,41 @@
-﻿using Blog.Tests;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Blogging.Domain.BlogAggregate;
+using System.Threading.Tasks;
 using Xunit;
+using Xunit.Abstractions;
+
 
 namespace Blogging.Tests.Domain
 {
     [Trait(TestHelper.TestType, TestHelper.IntegrationTest)]
-    public class Blog_Should
+    public class Blog_Should : IClassFixture<EfFixture>
     {
+        ITestOutputHelper output;
+        EfFixture efFixture;
 
-        [Trait(TestHelper.TestType, TestHelper.UnitTest)]
+        public Blog_Should(ITestOutputHelper output, EfFixture efFixture)
+        {
+            this.efFixture = efFixture;
+            this.output = output;
+        }
+
+
         [Fact]
         public void Be_Created()
         {
-
+            output.WriteLine(efFixture.Guid);
         }
 
-        [Trait(TestHelper.TestType, TestHelper.IntegrationTest)]
-        [Fact]
-        public void Be_Created_In_DataBase()
-        {
 
+        [Fact]
+        public async Task Be_Created_In_DataBaseAsync()
+        {
+            var blog = new Blog("first blog");
+
+            efFixture.BlogRepository.Add(blog);
+            await efFixture.BlogRepository.UnitOfWork.SaveEntitiesAsync();
+            
+            Assert.Equal(1, blog.Id);
+            
         }
     }
 }

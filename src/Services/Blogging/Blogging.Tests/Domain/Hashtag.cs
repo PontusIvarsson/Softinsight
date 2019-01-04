@@ -2,7 +2,7 @@
 using System;
 using Xunit;
 
-namespace Blog.Tests.Domain
+namespace Blogging.Tests.Domain
 {
 
     [Trait(TestHelper.TestType, TestHelper.UnitTest)]

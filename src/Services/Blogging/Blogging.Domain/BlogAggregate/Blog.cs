@@ -17,9 +17,7 @@ namespace Blogging.Domain.BlogAggregate
         [NotMapped]
         private List<Insight> _insights;
         
-        public IEnumerable<Insight> Insights => _insights;
-
-
+        public IReadOnlyCollection<Insight> Insights => _insights;
 
         public Insight AddInsight(string text)
         {
@@ -27,6 +25,5 @@ namespace Blogging.Domain.BlogAggregate
             _insights.Add(i);
             return i;
         }
-
     }
 }

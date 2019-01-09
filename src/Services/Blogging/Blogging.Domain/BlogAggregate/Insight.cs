@@ -27,6 +27,5 @@ namespace Blogging.Domain.BlogAggregate
                 throw new ApplicationException("Already contains tag.");
             _hashtags.Add(tag);
         }
-
     }
 }

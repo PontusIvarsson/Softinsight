@@ -1,5 +1,5 @@
-﻿using System.Data.SqlClient;
-using System.Diagnostics;
+﻿using System;
+using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
 using Blogging.Domain.BlogAggregate;
@@ -11,6 +11,7 @@ namespace Blogging.Infrastructure.Persistence
 {
     public class BlogContext : DbContext, IUnitOfWork
     {
+        public string UniqeId;
         private static SqlConnectionStringBuilder Blogging =>
             new SqlConnectionStringBuilder
             {
@@ -21,6 +22,7 @@ namespace Blogging.Infrastructure.Persistence
 
         public BlogContext()
         {
+            UniqeId = Guid.NewGuid().ToString();
         }
         
         public BlogContext (DbContextOptions<BlogContext> options)
@@ -30,10 +32,14 @@ namespace Blogging.Infrastructure.Persistence
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(Blogging.ConnectionString);
+            if(!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(Blogging.ConnectionString);
+            }  
         }
 
         public DbSet<Blog> Blog { get; set; }
+
 
         public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {

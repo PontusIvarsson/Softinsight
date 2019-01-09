@@ -10,7 +10,7 @@ namespace Blogging.Tests
         public const string TestType = "TestType";
         public const string UnitTest = "Unittest";
         public const string IntegrationTest = "Integrationtest";
-    }
 
-    
+        public const string Strategy = "1 arrange 2 act 3 assert";
+    }
 }

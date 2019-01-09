@@ -10,7 +10,7 @@ namespace Blogging.Infrastructure.Persistence
     public class BlogRepository : IBlogRepository
     {
 
-        private BlogContext _context;
+        public BlogContext _context;
         public IUnitOfWork UnitOfWork { get { return _context; } }
 
         public BlogRepository(BlogContext unitOfWork)
@@ -33,8 +33,6 @@ namespace Blogging.Infrastructure.Persistence
         {
             var blog = _context.Blog.Include(x => x.Insights)
                 .FirstOrDefaultAsync(m => m.Id == id);
-           
-
             return blog;
         }
 

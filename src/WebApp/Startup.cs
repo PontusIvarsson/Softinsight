@@ -1,22 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using Infrastructure;
-using WebApp.Domain.SharedKernel;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using WebApp.Domain.BlogAggregate;
-using WebApp.Infrastructure;
 using WebApp.Queries;
 using System.Data.SqlClient;
+using Blogging.Infrastructure.Persistence;
+using Blogging.Domain.BlogAggregate;
+using Blogging.Domain.SharedKernel;
 
 namespace WebApp
 {

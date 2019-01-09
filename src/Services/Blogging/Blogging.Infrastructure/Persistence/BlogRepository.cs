@@ -36,10 +36,7 @@ namespace Blogging.Infrastructure.Persistence
             return blog;
         }
 
-        public Task<Blog> FindByTag(string tag)
-        {
-            throw new NotImplementedException();
-        }
+
 
         public Blog Update(Blog blog)
         {

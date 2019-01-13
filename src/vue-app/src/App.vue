@@ -1,20 +1,18 @@
 <template>
   <div id="app">
-    test1
-    <Blog msg="test2"/>
-    test3
+    <edit-insight insight-name="test2"/>
   </div>
 </template>
 
 <script>
 //import HelloWorld from './components/HelloWorld.vue';
-import Blog from './components/Blog.vue';
+import EditInsight from './components/EditInsight.vue';
 import HelloWorld from "./components/HelloWorld.vue";
 
 export default {
   name: 'app',
   components: {
-    Blog,
+    EditInsight,
     HelloWorld,
   },
 };

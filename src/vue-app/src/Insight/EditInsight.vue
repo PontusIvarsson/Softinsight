@@ -1,6 +1,7 @@
 <template>
 
   <div>
+
   <h1>{{insightName}}</h1>
 
   <input type="checkbox" v-model="editMode">
@@ -22,8 +23,7 @@
       </li>
   </ul>
 
-    View output:<br>
-    {{content}}
+
   </div>
 
 </template>

@@ -1,10 +1,6 @@
 <template>
   <div id="app">
-
-    <list-insights/> <!---
-    <edit-insight insight-name="test2"/>
-   <hello-world insight-name="test2"/>-->
-
+    <list-insights/>
   </div>
 </template>
 

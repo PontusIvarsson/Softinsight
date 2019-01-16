@@ -1,15 +1,26 @@
 <template>
-    <div class=".popup-visable">
-        <ul>
-            <li v-for="insight in insights.insights" v-bind:key="insight.id">
-               <edit-insight
-               :init-insight="insight"
-               :init-insight-id="insight.id"
-               :init-insight-text="insight.text"
-               />
-            </li>
-        </ul>
+  <div>
+
+
+    <div class="input-group">
+      <input id="search" type="text" placeholder="looking for something..">
     </div>
+
+    <div class="row cols-sm-12 cols-lg-10 minheight">
+      <!-- Add the extra style to make card spacing look better -->
+      <div
+        class="col-lg-offset-1 row"
+        style="-webkit-justify-content: space-around; justify-content: space-around;"
+      >
+        <edit-insight
+          class="card"
+          v-for="insight in insights.insights"
+          v-bind:key="insight.id"
+          :init-insight="insight"
+        />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -36,15 +47,7 @@ export default {
 </script>
 
 <style>
-.popup-visible {
-    position: absolute;
-    z-index: 10;
-    visibility: visible;
-}
-
-.popup-hidden {
-    position: absolute;
-    z-index: 10;
-    visibility: hidden;
+.minheight {
+  min-height: 500px;
 }
 </style>

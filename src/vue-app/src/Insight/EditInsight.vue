@@ -1,59 +1,44 @@
 <template>
-
   <div>
+    <div v-if="editMode" v-on:click="toggleEdit()">
+      <div v-html="insight.text">{{insight.id}}</div>
+    </div>
 
-  <h1>{{insightName}}</h1>
+    <div v-if="!editMode">
+      <textarea v-model="insight.text"></textarea>
+      <input type="button" v-on:click="save(insight.text)" value="Save">
+    </div>
 
-  <input type="checkbox" v-model="editMode">
-
-  <div v-if="editMode">
-    <div v-html="content" v-bind:class="'color-' + color"> </div>
+    <span v-for="hashtag in insight.hashtags" v-bind:key="hashtag">#{{hashtag}}</span>
   </div>
-
-  <div v-if="!editMode">
-    <textarea v-model="content"></textarea>
-    <input type="button" v-on:click="al(content)" value="Save"/>
-  </div>
-
-
-  <ul>
-      <li v-for="hashtag in hashtags" v-bind:key="hashtag">
-        <span v-bind:text="content"></span>
-        {{hashtag}}
-      </li>
-  </ul>
-
-
-  </div>
-
 </template>
 
 <script>
 export default {
   name: 'EditInsight',
   props: {
-    insightName: String,
+    initInsight: null,
   },
   data() {
     return {
-      color: 'red',
-      editMode: 'true',
-      content: 'wow det här är content',
-      hashtags: ['#tag1', '#tag2', '#tag3'],
+      insight: this.initInsight,
+      editMode: 'false',
     };
   },
   methods: {
-    al(message) {
+    save(message) {
       console.log(message);
-      this.content = `${message}a`;
-      this.hashtags.push('#newtag');
+      this.toggleEdit();
+    },
+    toggleEdit() {
+      this.editMode = !this.editMode;
     },
   },
 };
 </script>
 
 <style>
-  .color-red {
-    color: green;
-  }
+.color-red {
+  color: green;
+}
 </style>

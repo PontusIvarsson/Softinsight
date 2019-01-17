@@ -7,14 +7,12 @@
 <script>
 // import HelloWorld from './components/HelloWorld.vue';
 import ListInsights from './Insight/ListInsights.vue';
-import EditInsight from './Insight/EditInsight.vue';
 import HelloWorld from './components/HelloWorld.vue';
 
 export default {
   name: 'app',
   components: {
     ListInsights,
-    EditInsight,
     HelloWorld,
   },
 };

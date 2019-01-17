@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3 class="section double-padded">
-      <span v-for="hashtag of insight.hashtags" v-bind:key="hashtag">#{{hashtag}} </span>
+      <span v-for="hashtag of insight.hashtags" v-bind:key="hashtag">#{{hashtag}}</span>
     </h3>
 
     <div class="section double-padded">
@@ -10,7 +10,12 @@
         <textarea v-bind:value="insight.text" ref="insight_text"></textarea>
         <br>
         <input type="button" v-on:click="cancel(insight.id)" value="Cancel">
-        <input type="button" v-on:click="save(insight.id, $event.target.value)" class="primary" value="Save">
+        <input
+          type="button"
+          v-on:click="save(insight.id, $event.target.value)"
+          class="primary"
+          value="Save"
+        >
       </div>
     </div>
   </div>

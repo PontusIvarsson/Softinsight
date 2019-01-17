@@ -12,11 +12,13 @@
         class="col-lg-offset-1 row"
         style="-webkit-justify-content: space-around; justify-content: space-around;"
       >
+        <new-insight/>
+
         <edit-insight
-          class="card"
           v-for="insight in insights.insights"
           v-bind:key="insight.id"
           :init-insight="insight"
+          class="card"
         />
       </div>
     </div>
@@ -25,6 +27,7 @@
 
 <script>
 import EditInsight from './EditInsight.vue';
+import NewInsight from './NewInsight.vue';
 
 const insights = {
   insights: [
@@ -37,7 +40,7 @@ const insights = {
 };
 
 export default {
-  components: { EditInsight },
+  components: { NewInsight, EditInsight },
   data() {
     return {
       insights,

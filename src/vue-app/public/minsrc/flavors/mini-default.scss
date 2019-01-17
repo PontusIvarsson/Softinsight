@@ -6,10 +6,10 @@
   Author: Angelos Chalaris (chalarangelo@gmail.com)
   Maintainers: Angelos Chalaris
   mini.css version: v3.0.1
-
+*/
 @import '../mini/core';
 @import '../mini/layout';
-*/
+
 /*
   Custom elements for card elements.
 */
@@ -52,7 +52,7 @@ $card-section-double-padded-padding:  calc(1.5 * var(#{$universal-padding-var}))
   Custom elements for forms and input elements.
 */
 $button-primary-name:            'primary';   // Class name for primary button color variant.
-$button-primary-back-color:      #1976d2;     // Background color for primary button color variant.
+$button-primary-back-color:      #1976d2;     // Background color for primary button color variant. #1976d2;
 $button-primary-hover-back-color:#1565c0;     // Background color for primary button color variant (hover).
 $button-primary-fore-color:      #f8f8f8;     // Text color for primary button color variant.
 @include make-button-alt-color ($button-primary-name, $button-primary-back-color, $button-primary-hover-back-color, $button-primary-fore-color);

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div class="test">scss är ett est</div>
     <h3 class="section double-padded">
       <span v-for="hashtag of insight.hashtags" v-bind:key="hashtag">#{{hashtag}}</span>
     </h3>
@@ -50,8 +51,22 @@ export default {
 };
 </script>
 
-<style>
-.color-red {
-  color: green;
+<style lang="scss">
+
+@import '../../public/minsrc/flavors/mini-dark.scss';
+
+.test{
+  background-color: $button-primary-back-color;
 }
+
+</style>
+
+
+$main-bg-color: #919890;
+.app-wrapper {
+    width: 1024px;
+    height: 768px;
+    background: $main-bg-color;
+}
+
 </style>

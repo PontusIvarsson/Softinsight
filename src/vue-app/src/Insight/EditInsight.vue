@@ -52,8 +52,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../public/minsrc/flavors/mini-default.scss';
 
+@import '../../public/minsrc/flavors/mini-default.scss';
+$button-primary-back-color: red;
 .test{
   background-color: $button-primary-back-color;
 }

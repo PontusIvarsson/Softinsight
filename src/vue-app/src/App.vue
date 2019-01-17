@@ -17,6 +17,5 @@ export default {
 </script>
 
 <style lang="scss">
-
 @import '../public/minsrc/flavors/mini-default.scss';
 </style>

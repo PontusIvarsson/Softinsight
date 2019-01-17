@@ -51,22 +51,10 @@ export default {
 };
 </script>
 
-<style lang="scss">
-
-@import '../../public/minsrc/flavors/mini-dark.scss';
+<style lang="scss" scoped>
+@import '../../public/minsrc/flavors/mini-default.scss';
 
 .test{
   background-color: $button-primary-back-color;
 }
-
-</style>
-
-
-$main-bg-color: #919890;
-.app-wrapper {
-    width: 1024px;
-    height: 768px;
-    background: $main-bg-color;
-}
-
 </style>

@@ -14,12 +14,13 @@ export default new Vuex.Store({
       { id: 4, text: 'test 4', hashtags: ['test 4', 'tag2', 'tag3'] },
       { id: 5, text: 'test 5', hashtags: ['test 5', 'tag2', 'tag3'] },
     ],
-    blog: null,
+    blog: [],
   },
   actions: {
     getBlogs({ commit }) {
       axios.get('/api/blog')
         .then(result => commit('updateBlog', result.data))
+        .then(console.log('test'))
         .catch(console.error);
     },
   },
@@ -28,7 +29,7 @@ export default new Vuex.Store({
       state.insights.push({ id: 10, text: insight.text, hashtags: ['verynew'] });
     },
     updateBlog(state, blogs) {
-      state.blogs = blogs;
+      state.blog = blogs;
     },
   },
 });

@@ -6,6 +6,7 @@
       <input id="search" type="text" placeholder="looking for something..">
     </div>
 
+
     <div class="row cols-sm-12 cols-lg-10 minheight">
       <!-- Add the extra style to make card spacing look better -->
       <div
@@ -15,7 +16,7 @@
         <new-insight/>
 
         <edit-insight
-          v-for="insight in insights.insights"
+          v-for="insight in getSearchInsightResult"
           v-bind:key="insight.id"
           :init-insight="insight"
           class="card"
@@ -29,22 +30,13 @@
 import EditInsight from './EditInsight.vue';
 import NewInsight from './NewInsight.vue';
 
-const insights = {
-  insights: [
-    { id: 1, text: 'test 1', hashtags: ['test 1', 'tag2', 'tag3'] },
-    { id: 2, text: 'test 2', hashtags: ['test 2', 'tag2', 'tag3'] },
-    { id: 3, text: 'test 3', hashtags: ['test 3', 'tag2', 'tag3'] },
-    { id: 4, text: 'test 4', hashtags: ['test 4', 'tag2', 'tag3'] },
-    { id: 5, text: 'test 5', hashtags: ['test 5', 'tag2', 'tag3'] },
-  ],
-};
 
 export default {
   components: { NewInsight, EditInsight },
-  data() {
-    return {
-      insights,
-    };
+  computed: {
+    getSearchInsightResult() {
+      return this.$store.state.insights;
+    },
   },
 };
 </script>

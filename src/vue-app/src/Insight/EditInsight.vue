@@ -1,14 +1,16 @@
 <template>
   <div>
-    <div class="test">scss är ett est</div>
     <h3 class="section double-padded">
       <span v-for="hashtag of insight.hashtags" v-bind:key="hashtag">#{{hashtag}}</span>
     </h3>
 
     <div class="section double-padded">
-      <div v-if="editMode" v-html="insight.text" v-on:click="toggleEdit()"></div>
-      <div v-if="!editMode">
+      <div v-if="!editMode" v-html="insight.text" v-on:click="toggleEdit()"></div>
+      <div v-if="editMode">
         <textarea v-bind:value="insight.text" ref="insight_text"></textarea>
+        <div contenteditable="true" v-html="insight.text">
+           <mark class="tag">tag</mark>
+        </div>
         <br>
         <input type="button" v-on:click="cancel(insight.id)" value="Cancel">
         <input
@@ -31,7 +33,7 @@ export default {
   data() {
     return {
       insight: this.initInsight,
-      editMode: 'false',
+      editMode: false,
     };
   },
   methods: {
@@ -52,10 +54,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-@import '../../public/minsrc/flavors/mini-default.scss';
+@import "../../public/minsrc/flavors/mini-default.scss";
 $button-primary-back-color: red;
-.test{
+.test {
   background-color: $button-primary-back-color;
 }
 </style>
